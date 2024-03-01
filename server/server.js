@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const artistListArray = require('./artist.js');
 const songListArray = require('./songs.js');
+const albumsArray = require('./albums.js');
 
 app.use(express.json());
 
@@ -18,6 +19,11 @@ app.get('/artist', (req, res) => {
 app.get('/song', (req, res) => {
   res.send(songListArray);
   console.log('in GET /songs');
+});
+
+app.get('/album', (req, res) => {
+  res.send(albumsArray);
+  console.log('in GET /albums');
 });
 
 app.listen(PORT, () => {
@@ -44,5 +50,13 @@ app.post('/songs', (req, res) => {
   console.log(req.body);
 
   songListArray.push(req.body);
+  res.sendStatus(201);
+});
+
+app.post('/albums', (req, res) => {
+  console.log('Post request made for /albums');
+  console.log(req.body);
+
+  albumsArray.push(req.body);
   res.sendStatus(201);
 });

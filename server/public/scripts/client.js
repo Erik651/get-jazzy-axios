@@ -75,6 +75,40 @@ function getSongs() {
 
 getSongs();
 
+function getAlbums() {
+  axios({
+    method: 'GET',
+    url: '/album',
+  })
+    .then(function (response) {
+      // Code that will run on successful response
+      // from the server.
+      console.log(response);
+
+      // quotesFromServer will be an Array of quotes
+      let albumsFromServer = response.data;
+      let contentDiv = document.querySelector('#albumTableBody');
+      document.getElementById('submitAlbumForm').reset();
+      contentDiv.innerHTML = '';
+      for (let album of albumsFromServer) {
+        contentDiv.innerHTML += `
+            <tr>
+                <td>${album.title}</td>
+                <td>${album.year}</td>
+                
+            </tr>
+        `;
+      }
+    })
+    .catch(function (error) {
+      // Code that will run on any errors from the server.
+      console.log(error);
+      alert('Something bad happened! Check the console for more details.');
+    });
+}
+
+getAlbums();
+
 //function to handle when the form is submitted
 function submitForm(event) {
   //prevent page from refreshing
@@ -124,6 +158,29 @@ function submitSongForm(event) {
     .then((response) => {
       console.log(response);
       getSongs();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+function submitAlbumForm(event) {
+  event.preventDefault();
+  console.log('in submitAlbumForm');
+
+  let title = document.querySelector('#albumTitleInput').value;
+  let year = document.querySelector('#albumYearInput').value;
+  console.log('inputs', title, year);
+
+  let songsForServer = {
+    title: title,
+    year: year,
+  };
+  axios
+    .post('/albums', songsForServer)
+    .then((response) => {
+      console.log(response);
+      getAlbums();
     })
     .catch((error) => {
       console.log(error);
