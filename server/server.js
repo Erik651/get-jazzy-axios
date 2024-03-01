@@ -1,51 +1,11 @@
 const express = require('express');
 const app = express();
+const artistListArray = require('./artist.js');
+const songListArray = require('./songs.js');
 
 app.use(express.json());
 
 const PORT = 5001;
-
-const artistListArray = [
-  {
-    name: 'Miles Davis',
-    born: 1926,
-    died: 1990,
-  },
-  {
-    name: 'Duke Ellington',
-    born: 1899,
-    died: 1974,
-  },
-  {
-    name: 'John Coltrane',
-    born: 1926,
-    died: 1987,
-  },
-  {
-    name: 'Louis Daniel Armstrong',
-    born: 1901,
-    died: 1971,
-  },
-];
-
-const songListArray = [
-  {
-    title: 'Take Five',
-    artist: 'The Dave Brubeck Quartet',
-  },
-  {
-    title: 'So What',
-    artist: 'Miles Davis',
-  },
-  {
-    title: 'Sing Sing Sing',
-    artist: 'Benny Goodman',
-  },
-  {
-    title: 'Take the "A" Train',
-    artist: 'The Dave Brubeck Quartet',
-  },
-];
 
 app.use(express.static('server/public'));
 
@@ -76,5 +36,13 @@ app.post('/artist', (req, res) => {
   artistListArray.push(req.body);
   // send a 201 response status
   // we use sendStatus when we send back a response code
+  res.sendStatus(201);
+});
+
+app.post('/songs', (req, res) => {
+  console.log('Post request made for /songs');
+  console.log(req.body);
+
+  songListArray.push(req.body);
   res.sendStatus(201);
 });

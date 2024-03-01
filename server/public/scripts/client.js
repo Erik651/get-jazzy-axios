@@ -50,9 +50,12 @@ function getSongs() {
       // Code that will run on successful response
       // from the server.
       console.log(response);
+
       // quotesFromServer will be an Array of quotes
       let songsFromServer = response.data;
       let contentDiv = document.querySelector('#songTableBody');
+      document.getElementById('submitSongForm').reset();
+      contentDiv.innerHTML = '';
       for (let songs of songsFromServer) {
         contentDiv.innerHTML += `
             <tr>
@@ -98,6 +101,29 @@ function submitForm(event) {
       console.log(response);
       // Once new quote has been added call getQuotes to get all of our quotes
       getArtists();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+function submitSongForm(event) {
+  event.preventDefault();
+  console.log('in submitSongForm');
+
+  let title = document.querySelector('#titleInput').value;
+  let artist = document.querySelector('#artistSongInput').value;
+  console.log('inputs', title, artist);
+
+  let songsForServer = {
+    title: title,
+    artist: artist,
+  };
+  axios
+    .post('/songs', songsForServer)
+    .then((response) => {
+      console.log(response);
+      getSongs();
     })
     .catch((error) => {
       console.log(error);
