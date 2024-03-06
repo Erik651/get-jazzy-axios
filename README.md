@@ -15,6 +15,6 @@
 ## Stretch
 
 - [+]Add an HTML form for adding a new song. Make a POST request to the server with song information. -[+] Add a server route that appends the song to the array of songs on the server.
-- The `server.js` file is getting a little crowded. Move arrays into a `modules` folder inside of your `server` folder (names like `artist.js` and `song.js` would be good).
-- The `/artist` and `/song` requests are working! Add a third array for albums that has `title` and `year` for the release date.
-- Add some styling to the page
+- [+]The `server.js` file is getting a little crowded. Move arrays into a `modules` folder inside of your `server` folder (names like `artist.js` and `song.js` would be good).
+- [+]The `/artist` and `/song` requests are working! Add a third array for albums that has `title` and `year` for the release date.
+- []mAdd some styling to the page
